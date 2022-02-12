@@ -8,6 +8,7 @@ import createScene from "./components/scene";
 import onWindowResize from "./utils/onWindowResize";
 import onKeyDown from "./utils/onKeyDown";
 import Stats from "../../node_modules/three/examples/jsm/libs/stats.module.js";
+import createBox, { createInnerLayer, createOuterLayer, createOuterShape } from "./components/keyLock";
 
 const main = (root) => {
   const scene = createScene();
@@ -16,12 +17,15 @@ const main = (root) => {
   const ground = createGround();
   const renderer = createRenderer();
   const controls = createControls(camera, renderer);
+  const outerBox = createOuterShape();
   const stats = new Stats();
 
   root.appendChild(renderer.domElement);
   root.appendChild(stats.dom);
   const sceneElements = [...lights, ground.mesh, ground.grid];
   sceneElements.forEach((element) => scene.add(element));
+  scene.add(outerBox);
+  console.log(outerBox);
   renderer.render(scene, camera);
 
   window.addEventListener("resize", () => onWindowResize(camera, renderer));

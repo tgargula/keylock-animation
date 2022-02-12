@@ -1,23 +1,18 @@
-import { HemisphereLight, DirectionalLight } from "three";
+import { DirectionalLight } from "three";
 
-const createHemisphereLight = () => {
-  const light = new HemisphereLight(0xffffff, 0xff4444);
-  light.position.set(0, 200, 0);
-
-  // return light;
-};
-
-const createDirectionalLight = () => {
-  const light = new DirectionalLight(0xffffff);
-  light.position.set(0, 200, 100);
+const createLight = ({ intensity, position: { x, y, z } }) => {
+  const light = new DirectionalLight(0xffffff, intensity || 0.5);
+  light.position.set(x, y, z);
   light.castShadow = true;
-  light.shadow.camera.top = 500;
-  light.shadow.camera.bottom = -500;
-  light.shadow.camera.left = -500;
-  light.shadow.camera.right = 500;
+
   return light;
 };
 
-const createLights = () => [createHemisphereLight(), createDirectionalLight()];
+const createLights = () =>
+  [
+    { intensity: 0.7, position: { x: 100, y: 100, z: 100 } },
+    { intensity: 0.5, position: { x: -100, y: 50, z: 100 } },
+    { intensity: 0.5, position: { x: 0, y: 150, z: 50 } },
+  ].map(createLight);
 
 export default createLights;
