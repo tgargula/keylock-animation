@@ -3,12 +3,13 @@ import {
   DoubleSide,
   Mesh,
   MeshLambertMaterial,
+  MeshPhongMaterial,
   Shape,
   ShapeGeometry,
   Vector2,
-} from "three";
-import { CylinderGeometry } from "three";
-import { mergeBufferGeometries } from "three/examples/jsm/utils/BufferGeometryUtils";
+} from 'three';
+import { CylinderGeometry } from 'three';
+import { mergeBufferGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils';
 
 const createKey = (unlockHeights) => {
   const head = new CylinderGeometry(50, 50, 8, 60, 2, false, 0, 2 * Math.PI);
@@ -94,18 +95,17 @@ const createKey = (unlockHeights) => {
     ...fingers,
   ]);
   const material = new MeshLambertMaterial({
-    color: "orange",
+    color: 'orange',
     side: DoubleSide,
   });
   const mesh = new Mesh(geometry, material);
 
-  mesh.translateX(-200);
-  mesh.translateY(120);
+  geometry.translate(0, 0, 5);
+
+  mesh.translateX(-175);
+  mesh.translateY(120 + 5);
   mesh.translateZ(34);
   mesh.rotateX(Math.PI / 2);
-
-  mesh.updateMatrix();
-  mesh.translateX(25);
 
   return mesh;
 };

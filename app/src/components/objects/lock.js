@@ -1,12 +1,11 @@
 import {
-  BackSide,
   BoxGeometry,
   CylinderGeometry,
   DoubleSide,
   Mesh,
   MeshPhongMaterial,
-} from "three";
-import { mergeBufferGeometries } from "three/examples/jsm/utils/BufferGeometryUtils";
+} from 'three';
+import { mergeBufferGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils';
 
 export const createOuterShape = () => {
   const shapes = [
@@ -61,7 +60,7 @@ export const createOuterShape = () => {
 
   const geometry = mergeBufferGeometries(geometries);
   geometry.translate(0, 100, 0);
-  const material = new MeshPhongMaterial({ color: "silver" });
+  const material = new MeshPhongMaterial({ color: 'silver' });
   const mesh = new Mesh(geometry, material);
   mesh.receiveShadow = true;
   mesh.castShadow = true;
@@ -69,24 +68,30 @@ export const createOuterShape = () => {
   return mesh;
 };
 
-export const createInnerShape = (rotation = 0) => {
+export const createInnerShape = () => {
   const geometry = new CylinderGeometry(25, 25, 100, 20, 10, true, 0, Math.PI);
   const material = new MeshPhongMaterial({
-    color: 0xff0000,
+    color: 'silver',
     side: DoubleSide,
   });
 
   const mesh = new Mesh(geometry, material);
-  mesh.receiveShadow = true;
-  mesh.castShadow = true;
   mesh.translateY(125);
   mesh.translateX(50);
   mesh.translateZ(36);
 
   mesh.rotateZ(Math.PI / 2);
-  mesh.rotateY(Math.PI / 2 + rotation);
+  mesh.rotateY(Math.PI / 2);
+  mesh.updateMatrix();
 
-  return mesh;
+  const update = (keyRotation) => {
+    mesh.rotation.set(-Math.PI / 2 + keyRotation, 0, Math.PI / 2);
+  };
+
+  return {
+    mesh,
+    update,
+  };
 };
 
 export default createOuterShape;

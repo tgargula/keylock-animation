@@ -3,7 +3,7 @@ import {
   PlaneBufferGeometry,
   MeshPhongMaterial,
   GridHelper,
-} from "three";
+} from 'three';
 
 const createGround = () => {
   const mesh = new Mesh(
@@ -11,7 +11,7 @@ const createGround = () => {
     new MeshPhongMaterial({ color: 0x999999, depthWrite: false })
   );
   mesh.rotation.x = -Math.PI / 2;
-  mesh.receiveShadow = true;
+  // mesh.receiveShadow = true;
 
   const grid = new GridHelper(3000, 20, 0x000000, 0x000000);
   grid.material.opacity = 0.2;

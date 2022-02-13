@@ -1,4 +1,4 @@
-import { PerspectiveCamera } from "three";
+import { PerspectiveCamera } from 'three';
 
 const createCamera = () => {
   const fov = 45;

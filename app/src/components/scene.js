@@ -1,4 +1,4 @@
-import { Scene, Color, Fog } from "three";
+import { Scene, Color, Fog } from 'three';
 
 const createScene = () => {
   const scene = new Scene();
@@ -6,6 +6,6 @@ const createScene = () => {
   scene.fog = new Fog(0xa0a0a0, 500, 1500);
 
   return scene;
-}
+};
 
 export default createScene;

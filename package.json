@@ -16,7 +16,6 @@
     "@types/three": "^0.135.0",
     "css-loader": "^6.5.1",
     "html-webpack-plugin": "^5.5.0",
-    "nodemon": "^2.0.15",
     "style-loader": "^3.3.1",
     "webpack": "^5.65.0",
     "webpack-cli": "^4.9.1"

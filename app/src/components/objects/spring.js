@@ -1,12 +1,12 @@
 import {
   Curve,
   Mesh,
-  MeshBasicMaterial,
+  MeshPhongMaterial,
   TorusGeometry,
   TubeGeometry,
   Vector3,
-} from "three";
-import { mergeBufferGeometries } from "three/examples/jsm/utils/BufferGeometryUtils";
+} from 'three';
+import { mergeBufferGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils';
 
 class SpringCurve extends Curve {
   constructor(size, radius, segments) {
@@ -25,20 +25,14 @@ class SpringCurve extends Curve {
   }
 }
 
-export const createSpring = ({
+const createSpring = ({
   curve: { height, radius, segments },
   position: { x, y, z },
 }) => {
   const tubeRadius = 0.5;
   const innerRadius = radius - tubeRadius;
   const path = new SpringCurve(height, innerRadius, segments);
-  const spring = new TubeGeometry(
-    path,
-    250,
-    tubeRadius,
-    10,
-    false
-  );
+  const spring = new TubeGeometry(path, 250, tubeRadius, 10, false);
 
   const springStart = new TorusGeometry(
     innerRadius,
@@ -61,36 +55,10 @@ export const createSpring = ({
   const geometry = mergeBufferGeometries([springStart, spring, springEnd]);
   geometry.translate(x + radius, y - height, z + radius);
 
-  const material = new MeshBasicMaterial({ color: 0x00ff00 });
+  const material = new MeshPhongMaterial({ color: 'silver' });
   const mesh = new Mesh(geometry, material);
-  mesh.castShadow = true;
-  mesh.receiveShadow = true;
 
   return mesh;
 };
 
-const createSprings = () =>
-  [
-    {
-      curve: { height: 30, radius: 4, segments: 10 },
-      position: { x: 10, y: 200, z: 30 },
-    },
-    {
-      curve: { height: 45, radius: 4, segments: 10 },
-      position: { x: 28, y: 200, z: 30 },
-    },
-    {
-      curve: { height: 35, radius: 4, segments: 10 },
-      position: { x: 46, y: 200, z: 30 },
-    },
-    {
-      curve: { height: 20, radius: 4, segments: 10 },
-      position: { x: 64, y: 200, z: 30 },
-    },
-    {
-      curve: { height: 40, radius: 4, segments: 10 },
-      position: { x: 82, y: 200, z: 30 },
-    },
-  ].map(createSpring);
-
-export default createSprings;
+export default createSpring;

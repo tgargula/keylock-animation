@@ -3,32 +3,32 @@ const SPEED = 2;
 const onKeyDown = (e, camera) => {
   console.log(e.key);
   switch (e.key) {
-    case "w":
+    case 'w':
       camera.position.x -= SPEED * Math.sin(camera.rotation.y);
       camera.position.z -= SPEED * Math.cos(camera.rotation.y);
       break;
-    case "s":
+    case 's':
       camera.position.x += SPEED * Math.sin(camera.rotation.y);
       camera.position.z += SPEED * Math.cos(camera.rotation.y);
       break;
-    case "a":
+    case 'a':
       camera.position.x -= SPEED * Math.cos(camera.rotation.y);
       camera.position.z += SPEED * Math.sin(camera.rotation.y);
       break;
-    case "d":
+    case 'd':
       camera.position.x += SPEED * Math.cos(camera.rotation.y);
       camera.position.z -= SPEED * Math.sin(camera.rotation.y);
       break;
-    case "e":
+    case 'e':
       camera.rotation.x += SPEED * 0.01;
       break;
-    case "q":
+    case 'q':
       camera.rotation.z -= SPEED * 0.01;
       break;
-    case " ":
+    case ' ':
       camera.position.y += SPEED;
       break;
-    case "Control":
+    case 'Control':
       camera.position.y -= SPEED;
       break;
     default:

@@ -3,13 +3,14 @@ import {
   Mesh,
   MeshPhongMaterial,
   SphereGeometry,
-} from "three";
-import { mergeBufferGeometries } from "three/examples/jsm/utils/BufferGeometryUtils";
-import { createSpring } from "./spring";
+} from 'three';
+import { mergeBufferGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils';
+import createSpring from './spring';
 
 const createPinPart = ({
   pin: { height, radius, smoothEnd, color },
   position: { x, y, z },
+  rotation = 0,
 }) => {
   const cylinderHeight = smoothEnd ? height - radius : height;
   const cylinder = new CylinderGeometry(
@@ -44,9 +45,13 @@ const createPinPart = ({
 
   const mesh = new Mesh(geometry, material);
 
-  mesh.translateX(x);
-  mesh.translateY(y);
-  mesh.translateZ(z);
+  // Set rotation axis
+  mesh.geometry.translate(-radius, 25, -radius);
+  mesh.translateX(x + radius);
+  mesh.translateY(y - 25);
+  mesh.translateZ(z + radius);
+
+  mesh.rotateX(rotation);
 
   return mesh;
 };
@@ -55,6 +60,7 @@ export const createPin = ({
   heights: { full, first, second },
   position: { x, y, z },
   radius,
+  rotation,
 }) => {
   let springHeight = full - first - second;
 
@@ -67,21 +73,23 @@ export const createPin = ({
     position: { x, y, z },
   });
   const firstPin = createPinPart({
-    pin: { height: first, smoothEnd: false, color: 0x00ffff, radius },
+    pin: { height: first, smoothEnd: false, color: 'yellow', radius },
     position: { x, z, y: y - springHeight },
+    rotation: 0,
   });
   const secondPin = createPinPart({
-    pin: { height: second, smoothEnd: true, color: 0x0000ff, radius },
+    pin: { height: second, smoothEnd: true, color: 'orange', radius },
     position: { x, z, y: y - springHeight - first },
+    rotation,
   });
 
-  const update = (offset) => {
-    return createPin({
+  const update = (offset, rotation) =>
+    createPin({
       heights: { full: full - offset, first, second },
       position: { x, y, z },
       radius,
+      rotation,
     });
-  };
 
   return {
     meshes: [spring, firstPin, secondPin],
@@ -95,6 +103,7 @@ const createPins = (unlockHeights) =>
       heights: { full: 85, first: 35, second: 20 - unlockHeight },
       position: { x: 10 + idx * 18, y: 200, z: 30 },
       radius: 4,
+      rotation: 0,
     }))
     .map(createPin);
 
