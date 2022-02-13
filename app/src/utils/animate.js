@@ -44,7 +44,9 @@ const animate = (
   scene.remove(...pins.map(({ meshes }) => meshes).flat());
   scene.add(...newPins.map(({ meshes }) => meshes).flat());
 
-  const value = 200 * Math.sin(t) * Math.sin(t);
+  const addon = Math.cos(t) < 0 ? 200 * Math.cos(t) * Math.cos(t) : 0;
+  const value = 100 * Math.sin(t) * Math.sin(t) + addon;
+
   const newKeyPosition = -175 + Math.min(value, 100);
   const newKeyRotation =
     Math.min(0, (((100 - value) / 100) * Math.PI) / 2) + Math.PI / 2;
