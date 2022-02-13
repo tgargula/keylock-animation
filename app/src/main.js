@@ -18,18 +18,17 @@ const main = (root) => {
   const lights = createLights();
   const ground = createGround();
   const renderer = createRenderer();
-  const controls = createControls(camera, renderer);
+  createControls(camera, renderer);
   const outerBox = createOuterShape();
   const innerShape = createInnerShape();
   const unlocks = [7, 3, 0.2, 10, 2];
   const initialPins = createPins(unlocks);
-  // let pins = createPins(unlocks);
   const key = createKey(unlocks);
   const stats = new Stats();
 
   const sceneElements = [
     ...lights,
-    ground.mesh,
+    ground,
     outerBox,
     innerShape.mesh,
     key,

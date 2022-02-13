@@ -3,7 +3,6 @@ import {
   DoubleSide,
   Mesh,
   MeshLambertMaterial,
-  MeshPhongMaterial,
   Shape,
   ShapeGeometry,
   Vector2,
