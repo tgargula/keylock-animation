@@ -1,5 +1,5 @@
 {
-  "name": "assassins-creed-loading-screen",
+  "name": "keylock-animation",
   "version": "1.0.0",
   "main": "./app/src/index.js",
   "scripts": {
